@@ -154,7 +154,7 @@ def get_image(img):
        boxes = prediction[0]["boxes"][element].cpu().numpy()
        score = np.round(prediction[0]["scores"][element].cpu().numpy(),
                         decimals= 4)
-       if score > 0.59:
+       if score > 0:
 
           draw.rectangle([(boxes[0], boxes[1]), (boxes[2], boxes[3])], 
           outline ="red", width =3)
