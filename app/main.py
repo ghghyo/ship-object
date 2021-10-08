@@ -9,8 +9,9 @@ Created on Thu Oct  7 13:45:40 2021
 
 from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS, cross_origin
-
-from app.torch_utils import accept_input, get_prediction
+import base64
+from io import BytesIO
+from app.torch_utils import accept_input, get_prediction, get_image
 
 app = Flask(__name__)
 CORS(app)
@@ -33,3 +34,13 @@ def predict():
         boxes = get_prediction(img)
         
         return boxes
+    
+@app.route('/get_images', methods=['POST'])
+def get_images():
+    file=request.form['nm']
+    img=accept_input(int(file))
+    image=get_image(img)
+    buffered = BytesIO()
+    image.save(buffered, format="JPEG")
+    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    return jsonify({'status': True, 'image': str(img_str)})
