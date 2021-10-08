@@ -15,7 +15,7 @@ from PIL import Image
 import numpy as np
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-import transforms as T
+import app.transforms as T
 
 from skimage import io
 
