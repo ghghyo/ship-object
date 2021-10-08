@@ -119,7 +119,7 @@ device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cp
 # our dataset has two classes only - background and person
 num_classes = 2
 #change to test if you arent using test set from OPENSAR
-model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False)
+model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
 in_features = model.roi_heads.box_predictor.cls_score.in_features
 # replace the pre-trained head with a new one
 model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
