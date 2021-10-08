@@ -11,7 +11,7 @@ import glob
 import os
 import pandas as pd
 import torch
-from PIL import Image
+from PIL import Image, ImageDraw
 import numpy as np
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
@@ -141,3 +141,23 @@ def get_prediction(img):
     prediction = ' '.join([str(elem) for elem in prediction])
     return prediction
 
+def get_image(img):
+    with torch.no_grad():
+       prediction = model([img])
+    image = Image.fromarray(img.mul(255).permute(1, 2,0).byte().numpy())
+    draw = ImageDraw.Draw(image)
+    # draw groundtruth
+    trueboxes=[]
+    predboxes=[]
+    
+    for element in range(len(prediction[0]["boxes"])):    
+       boxes = prediction[0]["boxes"][element].cpu().numpy()
+       score = np.round(prediction[0]["scores"][element].cpu().numpy(),
+                        decimals= 4)
+       if score > 0.59:
+
+          draw.rectangle([(boxes[0], boxes[1]), (boxes[2], boxes[3])], 
+          outline ="red", width =3)
+          draw.text((boxes[0], boxes[1]), text = str(score))
+          predboxes.append(boxes)
+    return image
