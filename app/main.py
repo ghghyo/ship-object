@@ -22,7 +22,6 @@ def index():
     return "<h1>Welcome to our server !!</h1>"
 
 @app.route('/predict', methods=['POST'])
-@cross_origin()
 def predict():
     if request.method == 'POST':
         #print(request.data)
