@@ -21,7 +21,7 @@ from skimage import io
 
 
 #our files we will use and exculde unlabeled data
-names=[os.path.basename(x) for x in glob.glob("ships/*.jpg")]
+names=[os.path.basename(x) for x in glob.glob("app/ships/*.jpg")]
 gao = [string for string in names if "Gao_ship" in string]
 sen = [string for string in names if "Sen_ship" in string]
 #names= gao+sen
@@ -31,7 +31,7 @@ sen = [string for string in names if "Sen_ship" in string]
 #names=[string for string in names if string not in sen+ gao] #list of ships not used in training and val
 
 #create a csv for pytorch dataloaders function
-dirpath="ships/"
+dirpath="app/ships/"
 elements = ['{0}txt'.format(element[:-3]) for element in sorted(names)]
 
 def parse_one_annot(idfile):
