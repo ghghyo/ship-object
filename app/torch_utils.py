@@ -21,7 +21,7 @@ from skimage import io
 
 
 #our files we will use and exculde unlabeled data
-names=[os.path.basename(x) for x in glob.glob("/home/yabubaker/Documents/thirdproject/ship_dataset_v0/*.jpg")]
+names=[os.path.basename(x) for x in glob.glob("ships/*.jpg")]
 gao = [string for string in names if "Gao_ship" in string]
 sen = [string for string in names if "Sen_ship" in string]
 #names= gao+sen
@@ -31,7 +31,7 @@ sen = [string for string in names if "Sen_ship" in string]
 #names=[string for string in names if string not in sen+ gao] #list of ships not used in training and val
 
 #create a csv for pytorch dataloaders function
-dirpath="/home/yabubaker/Documents/thirdproject/ship_dataset_v0/"
+dirpath="ships/"
 elements = ['{0}txt'.format(element[:-3]) for element in sorted(names)]
 
 def parse_one_annot(idfile):
@@ -125,7 +125,7 @@ in_features = model.roi_heads.box_predictor.cls_score.in_features
 model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 # move model to the right device
 model.to(device)
-model.load_state_dict(torch.load(weight,map_location=torch.device('cpu') ))
+#model.load_state_dict(torch.load(weight,map_location=torch.device('cpu') ))
 #Draw one of the predictions
 #put the model in evaluation mode
 model.eval()
