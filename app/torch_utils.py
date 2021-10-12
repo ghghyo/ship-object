@@ -109,7 +109,7 @@ def get_transform(train):
 def collate_fn(batch):
     return tuple(zip(*batch))
 
-weight="weight_half2"
+weight="weights/weight_half2"
 idx=0
 
 
