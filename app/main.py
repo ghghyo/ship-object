@@ -12,7 +12,7 @@ from flask_cors import CORS, cross_origin
 import base64
 from io import BytesIO
 from PIL import Image
-import transforms as T
+import app.transforms as T
 from app.torch_utils import accept_input, get_prediction, get_image
 
 app = Flask(__name__)
