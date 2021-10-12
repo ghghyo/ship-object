@@ -109,7 +109,7 @@ def get_transform(train):
 def collate_fn(batch):
     return tuple(zip(*batch))
 
-weight="/home/yabubaker/Documents/fourthproject/app/weight_vv_pre"
+weight="weight_half2"
 idx=0
 
 
@@ -125,7 +125,7 @@ in_features = model.roi_heads.box_predictor.cls_score.in_features
 model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 # move model to the right device
 model.to(device)
-#model.load_state_dict(torch.load(weight,map_location=torch.device('cpu') ))
+model.load_state_dict(torch.load(weight,map_location=torch.device('cpu') ))
 #Draw one of the predictions
 #put the model in evaluation mode
 model.eval()
